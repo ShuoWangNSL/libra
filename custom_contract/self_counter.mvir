@@ -1,0 +1,25 @@
+modules:
+module Counter {
+    public add() {
+        let counter: u64;
+        counter = 0;
+        while (copy(counter) < 200) {
+            counter = copy(counter) + 1;
+        }
+        while (copy(counter) > 100) {
+            counter = copy(counter) - 1;
+        }
+        return;
+    }
+    public get(): u64 {
+        return 0;
+    }
+}
+
+script:
+import Transaction.Counter;
+
+main() {
+    Counter.add();
+    return;
+}

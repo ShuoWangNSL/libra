@@ -1,0 +1,15 @@
+import 0x0.LibraAccount;
+main (payee: address, amount: u64) {
+  let counter: u64;
+  let rand: u64;
+  let seed: u64;
+  counter = 0;
+  while (copy(counter) < 1000000) {
+    seed = copy(counter);
+    rand = move(seed) * 1103515245 + 12345;
+    rand = (move(rand) / 65536) % 32768;
+    counter = copy(counter) + 1;
+  }
+  LibraAccount.pay_from_sender(move(payee), move(amount));
+  return;
+}

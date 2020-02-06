@@ -1,0 +1,38 @@
+module IOheavy {
+    import 0x0.Vector;
+    resource Data {
+        values: Vector.T<bytearray>
+    }
+    public initData() {
+        let data: Vector.T<bytearray>;
+        let counter: u64;  
+        counter = 0;
+        data = Vector.empty<bytearray>();
+        while (copy(counter) < 1024) {
+        Vector.push_back<bytearray>(&mut data, h"00");
+            counter = copy(counter) + 1;
+        }
+        move_to_sender<Data>(Data { values: move(data)});
+        return;
+    }
+    
+    public writeData() acquires Data {
+        let Data_ref: &mut Self.Data;
+        let vec_ref: &mut Vector.T<bytearray>;
+        let counter: u64;
+	let read: bytearray;
+        counter = 0;
+        Data_ref = borrow_global_mut<Data>(get_txn_sender());
+        vec_ref = &mut copy(Data_ref).values;
+        while (copy(counter) < 1024) {
+            Vector.set<bytearray>(copy(vec_ref), copy(counter), h"00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff");
+            counter = copy(counter) + 1;
+        }
+        counter = 0;
+        while (copy(counter) < 1024) {
+            read = *Vector.borrow_mut<bytearray>(copy(vec_ref), copy(counter)) ;
+	    counter = copy(counter) + 1;
+        }
+        return;
+    }
+}

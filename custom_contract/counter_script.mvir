@@ -1,0 +1,6 @@
+import {{sender}}.Counter;
+
+main() {
+    Counter.add();
+    return;
+}

@@ -1,0 +1,25 @@
+import 0x0.LibraAccount;
+import 0x0.Vector;
+main(payee: address) {
+    let data: Vector.T<bytearray>;
+    let counter: u64;   
+    let cnt: u64; 
+    let ref: &mut bytearray;
+    counter = 0;
+    cnt = 0;
+    data = Vector.empty<bytearray>();
+    while (copy(counter) < 1024) {
+        Vector.push_back<bytearray>(&mut data, h"00");
+        counter = copy(counter) + 1;
+    }
+    counter = 0;
+    while (copy(cnt) < 1024) {
+    while (copy(counter) < 1024) {
+        Vector.set<bytearray>(&mut data, copy(counter), h"00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff");
+        counter = copy(counter) + 1;
+    }
+        cnt = copy(cnt) + 1;
+    }
+    LibraAccount.pay_from_sender(move(payee), 1);
+    return;
+}

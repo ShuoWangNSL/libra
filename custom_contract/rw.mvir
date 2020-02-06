@@ -1,0 +1,159 @@
+import 0x0.LibraAccount;
+
+main(payee: address) {
+    let addr: address;
+    let balance: u64;
+    let counter: u64;
+
+    let a1: address;
+    let a2: address;
+    let a3: address;
+    let a4: address;
+    let a5: address;
+    let a6: address;
+    let a7: address;
+    let a8: address;
+    let a9: address;
+    let a10: address;
+
+    let a11: address;
+    let a12: address;
+    let a13: address;
+    let a14: address;
+    let a15: address;
+    let a16: address;
+    let a17: address;
+    let a18: address;
+    let a19: address;
+    let a20: address;
+
+    let a21: address;
+    let a22: address;
+    let a23: address;
+    let a24: address;
+    let a25: address;
+    let a26: address;
+    let a27: address;
+    let a28: address;
+    let a29: address;
+    let a30: address;
+
+    let a31: address;
+    let a32: address;
+
+    counter = 0;
+    
+    a1 = 0x1;
+    a2 = 0x01;
+    a3 = 0x0001;
+    a4 = 0x0000001;
+    a5 = 0x00000001;
+    a6 = 0x0000000000000001;
+    a7 = 0x00000000000000000000000000000001;
+    a8 = 0x000000000000000000000000000000001;
+    a9 = 0x000000000000000000000000000000000000000000000000000000000000001;
+    a10 = 0x0000000000000000000000000000000000000000000000000000000000000001;
+    
+    a11 = 0x2;
+    a12 = 0x02;
+    a13 = 0x0002;
+    a14 = 0x0000002;
+    a15 = 0x00000002;
+    a16 = 0x0000000000000002;
+    a17 = 0x00000000000000000000000000000002;
+    a18 = 0x000000000000000000000000000000002;
+    a19 = 0x000000000000000000000000000000000000000000000000000000000000002;
+    a20 = 0x0000000000000000000000000000000000000000000000000000000000000002;
+
+    a21 = 0x3;
+    a22 = 0x03;
+    a23 = 0x0003;
+    a24 = 0x0000003;
+    a25 = 0x00000003;
+    a26 = 0x0000000000000003;
+    a27 = 0x00000000000000000000000000000003;
+    a28 = 0x000000000000000000000000000000003;
+    a29 = 0x000000000000000000000000000000000000000000000000000000000000003;
+    a30 = 0x0000000000000000000000000000000000000000000000000000000000000003;
+    
+    a31 = 0x4;
+    a32 = 0x04;
+
+    LibraAccount.pay_from_sender(copy(a1), 1);
+    LibraAccount.pay_from_sender(copy(a2), 1);
+    LibraAccount.pay_from_sender(copy(a3), 1);
+    LibraAccount.pay_from_sender(copy(a4), 1);
+    LibraAccount.pay_from_sender(copy(a5), 1);
+    LibraAccount.pay_from_sender(copy(a6), 1);
+    LibraAccount.pay_from_sender(copy(a7), 1);
+    LibraAccount.pay_from_sender(copy(a8), 1);
+    LibraAccount.pay_from_sender(copy(a9), 1);
+    LibraAccount.pay_from_sender(copy(a10), 1);
+    
+    LibraAccount.pay_from_sender(copy(a11), 1);
+    LibraAccount.pay_from_sender(copy(a12), 1);
+    LibraAccount.pay_from_sender(copy(a13), 1);
+    LibraAccount.pay_from_sender(copy(a14), 1);
+    LibraAccount.pay_from_sender(copy(a15), 1);
+    LibraAccount.pay_from_sender(copy(a16), 1);
+    LibraAccount.pay_from_sender(copy(a17), 1);
+    LibraAccount.pay_from_sender(copy(a18), 1);
+    LibraAccount.pay_from_sender(copy(a19), 1);
+    LibraAccount.pay_from_sender(copy(a20), 1);
+
+    LibraAccount.pay_from_sender(copy(a21), 1);
+    LibraAccount.pay_from_sender(copy(a22), 1);
+    LibraAccount.pay_from_sender(copy(a23), 1);
+    LibraAccount.pay_from_sender(copy(a24), 1);
+    LibraAccount.pay_from_sender(copy(a25), 1);
+    LibraAccount.pay_from_sender(copy(a26), 1);
+    LibraAccount.pay_from_sender(copy(a27), 1);
+    LibraAccount.pay_from_sender(copy(a28), 1);
+    LibraAccount.pay_from_sender(copy(a29), 1);
+    LibraAccount.pay_from_sender(copy(a30), 1);
+
+    LibraAccount.pay_from_sender(copy(a31), 1);
+    LibraAccount.pay_from_sender(copy(a32), 1);
+
+    while (copy(counter) < 100000) {
+    balance = LibraAccount.balance(copy(a1));
+    balance = LibraAccount.balance(copy(a2));
+    balance = LibraAccount.balance(copy(a3));
+    balance = LibraAccount.balance(copy(a4));
+    balance = LibraAccount.balance(copy(a5));
+    balance = LibraAccount.balance(copy(a6));
+    balance = LibraAccount.balance(copy(a7));
+    balance = LibraAccount.balance(copy(a8));
+    balance = LibraAccount.balance(copy(a9));
+    balance = LibraAccount.balance(copy(a10));
+
+    balance = LibraAccount.balance(copy(a11));
+    balance = LibraAccount.balance(copy(a12));
+    balance = LibraAccount.balance(copy(a13));
+    balance = LibraAccount.balance(copy(a14));
+    balance = LibraAccount.balance(copy(a15));
+    balance = LibraAccount.balance(copy(a16));
+    balance = LibraAccount.balance(copy(a17));
+    balance = LibraAccount.balance(copy(a18));
+    balance = LibraAccount.balance(copy(a19));
+    balance = LibraAccount.balance(copy(a20));
+
+    balance = LibraAccount.balance(copy(a21));
+    balance = LibraAccount.balance(copy(a22));
+    balance = LibraAccount.balance(copy(a23));
+    balance = LibraAccount.balance(copy(a24));
+    balance = LibraAccount.balance(copy(a25));
+    balance = LibraAccount.balance(copy(a26));
+    balance = LibraAccount.balance(copy(a27));
+    balance = LibraAccount.balance(copy(a28));
+    balance = LibraAccount.balance(copy(a29));
+    balance = LibraAccount.balance(copy(a30));
+
+    balance = LibraAccount.balance(copy(a31));
+    balance = LibraAccount.balance(copy(a32));
+
+    counter = copy(counter) + 1;
+  }
+  LibraAccount.pay_from_sender(move(payee), 1);
+  return;
+}

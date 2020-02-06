@@ -1,0 +1,30 @@
+module Counter {
+    public add() {
+        let counter: u64;
+        counter = 0;
+        while (copy(counter) < 200) {
+            counter = copy(counter) + 1;
+        }
+        while (copy(counter) > 100) {
+            counter = copy(counter) - 1;
+        }
+        return;
+    }
+    public get(): u64 {
+        return 0;
+    }
+}
+
+import {{default}}.Counter;
+
+main() {
+    Counter.add();
+    let x: u64;
+    x = 1000000000000000;
+    while (copy(x) > 0) {
+        Counter.add();
+        x = copy(x) - 1;
+    }
+    assert(move(x) == 100, 42);
+    return;
+}

@@ -1,0 +1,15 @@
+import 0x0.Vector;
+import 0x0.LibraAccount;
+
+main (payee: address) {
+  let vec: Vector.T<u64>;
+  vec = Vector.empty<u64>();
+  // non-empty case
+  Vector.push_back<u64>(&mut vec, 0);
+  Vector.push_back<u64>(&mut vec, 1);
+  Vector.push_back<u64>(&mut vec, 2);
+  Vector.push_back<u64>(&mut vec, 3);
+  Vector.swap<u64>(&mut vec, 0, 3);
+  LibraAccount.pay_from_sender(move(payee), 1);
+  return;
+}

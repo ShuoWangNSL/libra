@@ -1,0 +1,6 @@
+import {{sender}}.Cpuheavy;
+
+main() {
+    Cpuheavy.sort();
+    return;
+}

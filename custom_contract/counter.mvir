@@ -1,0 +1,13 @@
+import 0x0.LibraAccount;
+main (payee: address, amount: u64) {
+  let counter: u64;
+  counter = 0;
+  while (copy(counter) < 2000000) {
+    counter = copy(counter) + 1;
+  }
+  while (copy(counter) > 1000000) {
+    counter = copy(counter) - 1;
+  }
+  LibraAccount.pay_from_sender(move(payee), move(amount));
+  return;
+}
