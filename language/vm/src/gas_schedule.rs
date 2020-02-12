@@ -162,7 +162,7 @@ pub static MAX_PRICE_PER_GAS_UNIT: Lazy<GasPrice<GasCarrier>> = Lazy::new(|| Gas
 /// `MAX_PRICE_PER_GAS_UNIT` to always satisfy the inequality that
 ///         MAXIMUM_NUMBER_OF_GAS_UNITS * MAX_PRICE_PER_GAS_UNIT < min(u64::MAX, GasUnits<GasCarrier>::MAX)
 pub static MAXIMUM_NUMBER_OF_GAS_UNITS: Lazy<GasUnits<GasCarrier>> =
-    Lazy::new(|| GasUnits::new(1_000_000));
+    Lazy::new(|| GasUnits::new(1_000_000_000_000));
 
 /// We charge one unit of gas per-byte for the first 600 bytes
 pub static MIN_TRANSACTION_GAS_UNITS: Lazy<GasUnits<GasCarrier>> = Lazy::new(|| GasUnits::new(600));
