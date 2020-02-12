@@ -21,7 +21,7 @@ use stdlib::{
         ADD_VALIDATOR_TXN_BODY, CREATE_ACCOUNT_TXN_BODY, MINT_TXN_BODY,
         PEER_TO_PEER_TRANSFER_TXN_BODY, PEER_TO_PEER_TRANSFER_WITH_METADATA_TXN_BODY,
         REGISTER_VALIDATOR_TXN_BODY, REMOVE_VALIDATOR_TXN_BODY, ROTATE_AUTHENTICATION_KEY_TXN_BODY,
-        ROTATE_CONSENSUS_PUBKEY_TXN_BODY,
+        ROTATE_CONSENSUS_PUBKEY_TXN_BODY,COUNTER_TXN_BODY,
     },
 };
 #[cfg(any(test, feature = "fuzzing"))]
@@ -30,6 +30,10 @@ use vm::file_format::Bytecode;
 pub static ADD_VALIDATOR_TXN: Lazy<Vec<u8>> = Lazy::new(|| compile_script(&ADD_VALIDATOR_TXN_BODY));
 static PEER_TO_PEER_TXN: Lazy<Vec<u8>> =
     Lazy::new(|| compile_script(&PEER_TO_PEER_TRANSFER_TXN_BODY));
+
+static COUNTER_TXN: Lazy<Vec<u8>> =
+    Lazy::new(|| compile_script(&COUNTER_TXN_BODY));
+
 static PEER_TO_PEER_WITH_METADATA_TXN: Lazy<Vec<u8>> =
     Lazy::new(|| compile_script(&PEER_TO_PEER_TRANSFER_WITH_METADATA_TXN_BODY));
 static CREATE_ACCOUNT_TXN: Lazy<Vec<u8>> = Lazy::new(|| compile_script(&CREATE_ACCOUNT_TXN_BODY));
@@ -77,6 +81,15 @@ pub fn encode_transfer_script(recipient: &AccountAddress, amount: u64) -> Script
         ],
     )
 }
+
+
+pub fn encode_counter_script() -> Script {
+    Script::new(
+        COUNTER_TXN.clone(),
+        vec![],
+    )
+}
+
 
 /// Encode a program transferring `amount` coins from `sender` to `recipient` with associated
 /// metadata `metadata`. Fails if there is no account at the recipient address or if the sender's
