@@ -15,6 +15,7 @@ pub struct VMConfig {
 
 impl Default for VMConfig {
     fn default() -> VMConfig {
+        /*
         let whitelist = vec![
             "10314990b6f9c1edce753a53866cee17bfde44a7991738b1df0f47e1b2e1b362",
             "eea7c57e6bce0face0e1f330fee5b15de95a5b96492d2f0388fd95737b224da6",
@@ -29,9 +30,10 @@ impl Default for VMConfig {
         .iter()
         .map(|s| string_to_script_hash(s))
         .collect();
-
+        */
         VMConfig {
-            publishing_options: VMPublishingOption::Locked(whitelist),
+            //publishing_options: VMPublishingOption::Locked(whitelist),
+            publishing_options: VMPublishingOption::Open,
         }
     }
 }
