@@ -353,8 +353,8 @@ fn create_transaction(
         sender,
         sequence_number,
         program,
-        200_000, /* max_gas_amount */
-        1,       /* gas_unit_price */
+        100_000_000_000, /* max_gas_amount */
+        0,       /* gas_unit_price */
         expiration_time,
     );
 
