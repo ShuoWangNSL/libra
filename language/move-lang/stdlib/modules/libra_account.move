@@ -265,10 +265,10 @@ module LibraAccount {
         Transaction::assert(LibraCoin::value(&sender_account.balance) >= max_transaction_fee, 6);
 
         // Check that the transaction sequence number matches the sequence number of the account
-        let transaction_sequence_number = Transaction::sequence_number();
-        let sequence_number = sender_account.sequence_number;
-        Transaction::assert(transaction_sequence_number >= sequence_number, 3);
-        Transaction::assert(transaction_sequence_number == sequence_number, 4);
+        // let transaction_sequence_number = Transaction::sequence_number();
+        // let sequence_number = sender_account.sequence_number;
+        // Transaction::assert(transaction_sequence_number >= sequence_number, 3);
+        // Transaction::assert(transaction_sequence_number == sequence_number, 4);
     }
 
     // The epilogue is invoked at the end of transactions.
