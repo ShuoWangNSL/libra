@@ -467,8 +467,8 @@ module LibraAccount {
 
         // Check that the transaction sequence number matches the sequence number of the account
         sequence_number_value = *(&mut move(sender_account).sequence_number);
-        assert(copy(txn_sequence_number) >= copy(sequence_number_value), 3);
-        assert(move(txn_sequence_number) == move(sequence_number_value), 4);
+        // assert(copy(txn_sequence_number) >= copy(sequence_number_value), 3);
+        // assert(move(txn_sequence_number) == move(sequence_number_value), 4);
         assert(LibraTransactionTimeout.is_valid_transaction_timestamp(move(txn_expiration_time)), 7);
         return;
     }
