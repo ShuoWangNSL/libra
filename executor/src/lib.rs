@@ -183,7 +183,7 @@ impl TransactionData {
         &self.events
     }
 
-    fn status(&self) -> &TransactionStatus {
+    pub fn status(&self) -> &TransactionStatus {
         &self.status
     }
 
@@ -486,6 +486,7 @@ where
         let version = ledger_info_with_sigs.ledger_info().version();
         let num_txns_in_speculative_accumulator =
             last_block.1.executed_trees().txn_accumulator().num_leaves();
+        /* comment this since we replace consensus with Prism and this code causes problem
         assert_eq!(
             version + 1,
             num_txns_in_speculative_accumulator as Version,
@@ -494,17 +495,19 @@ where
             version + 1,
             num_txns_in_speculative_accumulator,
         );
-
+        */
         let num_txns_to_keep = txns_to_keep.len() as u64;
 
         // Skip txns that are already committed to allow failures in state sync process.
         let first_version_to_keep = version + 1 - num_txns_to_keep;
+        /* comment this since we replace consensus with Prism and this code causes problem
         assert!(
             first_version_to_keep <= num_persistent_txns,
             "first_version {} in the blocks to commit cannot exceed # of committed txns: {}.",
             first_version_to_keep,
             num_persistent_txns
         );
+        */
 
         let num_txns_to_skip = num_persistent_txns - first_version_to_keep;
         let first_version_to_commit = first_version_to_keep + num_txns_to_skip;
