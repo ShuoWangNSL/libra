@@ -1,0 +1,9 @@
+import {{sender}}.Cpuheavy;
+import 0x0.LibraAccount;
+
+main(payee: address) {
+    let m: u64;
+    m = Cpuheavy.sort();
+    LibraAccount.pay_from_sender(move(payee), copy(m));
+    return;
+}
