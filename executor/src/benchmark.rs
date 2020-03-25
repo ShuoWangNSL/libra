@@ -86,7 +86,7 @@ impl TransactionGenerator {
 
     fn run(&mut self, init_account_balance: u64, block_size: usize, num_transfer_blocks: usize) {
         self.gen_mint_transactions(init_account_balance, block_size);
-        self.gen_transfer_transactions(block_size, num_transfer_blocks);
+        self.gen_transfer_transactions();
         self.gen_counter_transactions(block_size, num_transfer_blocks);
     }
 
@@ -116,39 +116,28 @@ impl TransactionGenerator {
     }
 
     /// Generates transactions for random pairs of accounts.
-    fn gen_transfer_transactions(&mut self, block_size: usize, num_blocks: usize) {
-        for _i in 0..num_blocks {
-            let mut transactions = Vec::with_capacity(block_size);
-            let length = self.accounts.len();
-            let mut batch = length;
-            if batch > block_size {
-                batch = block_size;
-            }
-            for j in 0..batch {
-                //let indices = rand::seq::index::sample(&mut self.rng, self.accounts.len(), 2);
-                let sender_idx = j;
-                let receiver_idx = (j + 1) % batch;
-
-                let sender = &self.accounts[sender_idx];
-                let receiver = &self.accounts[receiver_idx];
-                let txn = create_transaction(
+    fn gen_transfer_transactions(&mut self) {
+        let mut transactions = Vec::with_capacity(1);
+        let sender = &self.accounts[0];
+        let sender_idx = 0;
+        let txn = create_transaction(
                     sender.address,
                     sender.sequence_number,
                     &sender.private_key,
                     sender.public_key.clone(),
-                    encode_transfer_script(&receiver.address, 1 /* amount */),
+                    encode_transfer_script(),
                 );
                 transactions.push(txn);
 
                 self.accounts[sender_idx].sequence_number += 1;
-            }
+
 
             self.block_sender
                 .as_ref()
                 .unwrap()
                 .send(transactions)
                 .unwrap();
-        }
+
     }
 
     /// Generates transactions for random pairs of accounts.
@@ -156,13 +145,10 @@ impl TransactionGenerator {
         for _i in 0..num_blocks {
             let mut transactions = Vec::with_capacity(block_size);
             let length = self.accounts.len();
-            let mut batch = length;
-            if batch > block_size {
-                batch = block_size;
-            }
+            let mut batch = block_size;
             for j in 0..batch {
                 //let indices = rand::seq::index::sample(&mut self.rng, self.accounts.len(), 2);
-                let sender_idx = j;
+                let sender_idx = 0;
                 let sender = &self.accounts[sender_idx];
 
                 let txn = create_transaction(

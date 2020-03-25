@@ -72,13 +72,10 @@ pub fn encode_add_validator_script(new_validator: &AccountAddress) -> Script {
 
 /// Encode a program transferring `amount` coins from `sender` to `recipient`. Fails if there is no
 /// account at the recipient address or if the sender's balance is lower than `amount`.
-pub fn encode_transfer_script(recipient: &AccountAddress, amount: u64) -> Script {
+pub fn encode_transfer_script() -> Script {
     Script::new(
         PEER_TO_PEER_TXN.clone(),
-        vec![
-            TransactionArgument::Address(*recipient),
-            TransactionArgument::U64(amount),
-        ],
+        vec![],
     )
 }
 
