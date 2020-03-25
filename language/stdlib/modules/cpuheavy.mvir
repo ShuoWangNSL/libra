@@ -1,0 +1,66 @@
+module Cpuheavy {
+    import 0x0.Vector;
+
+    quickSort(v: &mut Vector.T<u64>, start: u64, end: u64) {
+        let i: u64;
+        let j: u64;
+        let pivot :u64;
+        let mid :u64;
+        let tmp :u64;
+        if ( copy(start) == copy(end) ) {
+            return;
+        }
+        i = copy(start);
+        j = copy(end);
+        mid = (copy(start) + copy(end)) / 2;
+        pivot = *Vector.borrow_mut<u64>(copy(v), copy(mid));
+    while ( copy(i) <= copy(j) ) {
+        tmp = *Vector.borrow_mut<u64>(copy(v), copy(i));
+        while ( copy(tmp) < copy(pivot) ) {
+            i = copy(i) + 1;
+            tmp = *Vector.borrow_mut<u64>(copy(v), copy(i));
+        }
+        tmp = *Vector.borrow_mut<u64>(copy(v), copy(j));
+        while ( copy(pivot) < copy(tmp) ){
+            j = copy(j) - 1;
+            tmp = *Vector.borrow_mut<u64>(copy(v), copy(j));
+        }
+        if ( copy(i) <= copy(j) ) {
+            Vector.swap<u64>(copy(v), copy(i), copy(j));
+            i = copy(i) + 1;
+            j = copy(j) - 1;
+        }
+    }
+
+    if ( copy(start) < copy(j) ) {
+        Self.quickSort( copy(v), copy(start), copy(j) );
+    }
+
+    if ( copy(i) < copy(end) ) {
+        Self.quickSort( copy(v), copy(i), copy(end) );
+    }
+        return;
+    }
+
+    public sort() :u64{
+	    let data: Vector.T<u64>;
+        let counter: u64;
+        let a: u64;
+        let b: u64;
+        let c: u64;
+        let sum: u64;
+        counter = 0;
+        data = Vector.empty<u64>();
+    	while ( copy(counter) < 255 ) {
+            Vector.push_back<u64>(&mut data, 255 - copy(counter));
+            counter = copy(counter) + 1;
+        }
+        Self.quickSort(&mut data, 0, 254);
+        a = *Vector.borrow_mut<u64>(&mut data, 0);
+        b = *Vector.borrow_mut<u64>(&mut data, 1);
+        c = *Vector.borrow_mut<u64>(&mut data, 2);
+        sum = move(a) + move(b) + move(c);
+	return move(sum);
+    }
+
+}
