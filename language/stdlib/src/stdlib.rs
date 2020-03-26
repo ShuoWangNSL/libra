@@ -42,6 +42,8 @@ static GAS_SCHEDULE: Lazy<ModuleDefinition> =
     Lazy::new(|| make_module_definition!("../modules/gas_schedule.mvir"));
 static CPUHEAVY_MODULE: Lazy<ModuleDefinition> =
     Lazy::new(|| make_module_definition!("../modules/cpuheavy.mvir"));
+static IOHEAVY_MODULE: Lazy<ModuleDefinition> =
+    Lazy::new(|| make_module_definition!("../modules/ioheavy.mvir"));
 static MODULE_DEFS: Lazy<Vec<&'static ModuleDefinition>> = Lazy::new(|| {
     // Note: a module can depend on earlier modules in the list, but not vice versa. Don't try
     // to rearrange without considering this!
@@ -61,6 +63,7 @@ static MODULE_DEFS: Lazy<Vec<&'static ModuleDefinition>> = Lazy::new(|| {
         &*ACCOUNT_MODULE, // depends on LibraCoin, Event, AddressUtil, BytearrayUtil, U64Util
         &*LIBRA_SYSTEM_MODULE, // depends on LibraAccount, LibraTime, ValidatorConfig
         &*CPUHEAVY_MODULE,
+        &*IOHEAVY_MODULE,
     ]
 });
 

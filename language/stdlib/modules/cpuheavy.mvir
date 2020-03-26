@@ -42,25 +42,19 @@ module Cpuheavy {
         return;
     }
 
-    public sort() :u64{
+    public sort(size: u64) :u64{
 	    let data: Vector.T<u64>;
         let counter: u64;
         let a: u64;
-        let b: u64;
-        let c: u64;
-        let sum: u64;
         counter = 0;
         data = Vector.empty<u64>();
-    	while ( copy(counter) < 255 ) {
-            Vector.push_back<u64>(&mut data, 255 - copy(counter));
+    	while ( copy(counter) < copy(size) ) {
+            Vector.push_back<u64>(&mut data, copy(size) - copy(counter));
             counter = copy(counter) + 1;
         }
-        Self.quickSort(&mut data, 0, 254);
-        a = *Vector.borrow_mut<u64>(&mut data, 0);
-        b = *Vector.borrow_mut<u64>(&mut data, 1);
-        c = *Vector.borrow_mut<u64>(&mut data, 2);
-        sum = move(a) + move(b) + move(c);
-	return move(sum);
+        Self.quickSort(&mut data, 0, copy(size) - 1);
+        a = *Vector.borrow_mut<u64>(&mut data, 2);
+	    return move(a);
     }
 
 }
