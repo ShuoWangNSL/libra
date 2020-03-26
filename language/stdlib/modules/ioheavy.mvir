@@ -20,7 +20,7 @@ module IOheavy {
         let Data_ref: &mut Self.Data;
         let vec_ref: &mut Vector.T<bytearray>;
         let counter: u64;
-	    let read: bytearray;
+	let read: bytearray;
         counter = 0;
         Data_ref = borrow_global_mut<Data>(get_txn_sender());
         vec_ref = &mut copy(Data_ref).values;
@@ -31,13 +31,13 @@ module IOheavy {
         counter = 0;
         while (copy(counter) < copy(size)) {
             read = *Vector.borrow_mut<bytearray>(copy(vec_ref), copy(counter)) ;
-	        counter = copy(counter) + 1;
+	    counter = copy(counter) + 1;
         }
-        counter = copy(size) - 1;
-        while (copy(counter) >= 0) {
-            read = *Vector.borrow_mut<bytearray>(copy(vec_ref), copy(counter)) ;
-	        counter = copy(counter) - 1;
+        counter = copy(size);
+        while (copy(counter) >= 1) {
+            read = *Vector.borrow_mut<bytearray>(copy(vec_ref), copy(counter) - 1);
+	    counter = copy(counter) - 1;
         }
-        return;
+	return;
     }
 }

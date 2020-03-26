@@ -14,38 +14,37 @@ module Cpuheavy {
         j = copy(end);
         mid = (copy(start) + copy(end)) / 2;
         pivot = *Vector.borrow_mut<u64>(copy(v), copy(mid));
-    while ( copy(i) <= copy(j) ) {
-        tmp = *Vector.borrow_mut<u64>(copy(v), copy(i));
-        while ( copy(tmp) < copy(pivot) ) {
-            i = copy(i) + 1;
-            tmp = *Vector.borrow_mut<u64>(copy(v), copy(i));
-        }
-        tmp = *Vector.borrow_mut<u64>(copy(v), copy(j));
-        while ( copy(pivot) < copy(tmp) ){
-            j = copy(j) - 1;
+        while ( copy(i) <= copy(j) ) {
+       	    tmp = *Vector.borrow_mut<u64>(copy(v), copy(i));
+            while ( copy(tmp) < copy(pivot) ) {
+                i = copy(i) + 1;
+                tmp = *Vector.borrow_mut<u64>(copy(v), copy(i));
+            }
             tmp = *Vector.borrow_mut<u64>(copy(v), copy(j));
-        }
-        if ( copy(i) <= copy(j) ) {
-            Vector.swap<u64>(copy(v), copy(i), copy(j));
-            i = copy(i) + 1;
-            j = copy(j) - 1;
-        }
-    }
+            while ( copy(pivot) < copy(tmp) ){
+                j = copy(j) - 1;
+                tmp = *Vector.borrow_mut<u64>(copy(v), copy(j));
+            }
+            if ( copy(i) <= copy(j) ) {
+                Vector.swap<u64>(copy(v), copy(i), copy(j));
+                i = copy(i) + 1;
+                j = copy(j) - 1;
+            }  
+        } 
 
-    if ( copy(start) < copy(j) ) {
-        Self.quickSort( copy(v), copy(start), copy(j) );
-    }
+        if ( copy(start) < copy(j) ) {
+            Self.quickSort( copy(v), copy(start), copy(j) );
+        }
 
-    if ( copy(i) < copy(end) ) {
-        Self.quickSort( copy(v), copy(i), copy(end) );
-    }
+        if ( copy(i) < copy(end) ) {
+            Self.quickSort( copy(v), copy(i), copy(end) );
+        }
         return;
     }
 
-    public sort(size: u64) :u64{
-	    let data: Vector.T<u64>;
+    public sort(size: u64) {
+	let data: Vector.T<u64>;
         let counter: u64;
-        let a: u64;
         counter = 0;
         data = Vector.empty<u64>();
     	while ( copy(counter) < copy(size) ) {
@@ -53,8 +52,7 @@ module Cpuheavy {
             counter = copy(counter) + 1;
         }
         Self.quickSort(&mut data, 0, copy(size) - 1);
-        a = *Vector.borrow_mut<u64>(&mut data, 2);
-	    return move(a);
+	return;
     }
 
 }
