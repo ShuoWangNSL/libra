@@ -96,7 +96,6 @@ pub static IOHEAVYINIT_TXN_BODY: Lazy<Program> =
 pub static IOHEAVYRUN_TXN_BODY: Lazy<Program> =
     Lazy::new(|| parse_program(ioheavy_run()).unwrap());
 
-
 pub static PEER_TO_PEER_TRANSFER_WITH_METADATA_TXN_BODY: Lazy<Program> =
     Lazy::new(|| parse_program(peer_to_peer_with_metadata()).unwrap());
 

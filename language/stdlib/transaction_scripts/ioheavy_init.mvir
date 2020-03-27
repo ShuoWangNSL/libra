@@ -1,5 +1,4 @@
 import 0x0.IOheavy;
-
 main() {
     IOheavy.initData(255);
     return;

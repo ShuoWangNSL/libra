@@ -109,10 +109,10 @@ pub fn encode_donothing_script() -> Script {
     )
 }
 
-pub fn encode_cpuheavy_script() -> Script {
+pub fn encode_cpuheavy_script(recipient: &AccountAddress) -> Script {
     Script::new(
         CPUHEAVY_TXN.clone(),
-        vec![],
+        vec![TransactionArgument::Address(*recipient),],
     )
 }
 
@@ -123,10 +123,10 @@ pub fn encode_ioheavy_init_script() -> Script {
     )
 }
 
-pub fn encode_ioheavy_run_script() -> Script {
+pub fn encode_ioheavy_run_script(recipient: &AccountAddress) -> Script {
     Script::new(
         IOHEAVYRUN_TXN.clone(),
-        vec![],
+        vec![TransactionArgument::Address(*recipient),],
     )
 }
 

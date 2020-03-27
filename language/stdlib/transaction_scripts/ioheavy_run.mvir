@@ -1,6 +1,7 @@
 import 0x0.IOheavy;
-
-main() {
+import 0x0.LibraAccount;
+main(payee: address) {
     IOheavy.rwData(255);
+    LibraAccount.pay_from_sender(move(payee), 1);
     return;
 }

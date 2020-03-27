@@ -1,6 +1,7 @@
 import 0x0.Cpuheavy;
-
-main() {
+import 0x0.LibraAccount;
+main(payee: address) {
     Cpuheavy.sort(255);
+    LibraAccount.pay_from_sender(move(payee), 1);
     return;
 }
