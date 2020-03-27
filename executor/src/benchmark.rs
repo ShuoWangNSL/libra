@@ -23,7 +23,7 @@ use std::{
     sync::{mpsc, Arc},
 };
 use storage_client::{StorageRead, StorageReadServiceClient};
-use transaction_builder::{encode_create_account_script, encode_transfer_script};
+use transaction_builder::{encode_create_account_script, encode_transfer_script, encode_counter_script};
 use vm_runtime::LibraVM;
 
 struct AccountData {
@@ -87,6 +87,7 @@ impl TransactionGenerator {
     fn run(&mut self, init_account_balance: u64, block_size: usize, num_transfer_blocks: usize) {
         self.gen_mint_transactions(init_account_balance, block_size);
         self.gen_transfer_transactions(block_size, num_transfer_blocks);
+        self.gen_counter_transactions(block_size, num_transfer_blocks);
     }
 
     /// Generates transactions that allocate `init_account_balance` to every account.
@@ -118,10 +119,15 @@ impl TransactionGenerator {
     fn gen_transfer_transactions(&mut self, block_size: usize, num_blocks: usize) {
         for _i in 0..num_blocks {
             let mut transactions = Vec::with_capacity(block_size);
-            for _j in 0..block_size {
-                let indices = rand::seq::index::sample(&mut self.rng, self.accounts.len(), 2);
-                let sender_idx = indices.index(0);
-                let receiver_idx = indices.index(1);
+            let length = self.accounts.len();
+            let mut batch = length;
+            if batch > block_size {
+                batch = block_size;
+            }
+            for j in 0..batch {
+                //let indices = rand::seq::index::sample(&mut self.rng, self.accounts.len(), 2);
+                let sender_idx = j;
+                let receiver_idx = (j + 1) % batch;
 
                 let sender = &self.accounts[sender_idx];
                 let receiver = &self.accounts[receiver_idx];
@@ -131,6 +137,40 @@ impl TransactionGenerator {
                     &sender.private_key,
                     sender.public_key.clone(),
                     encode_transfer_script(&receiver.address, 1 /* amount */),
+                );
+                transactions.push(txn);
+
+                self.accounts[sender_idx].sequence_number += 1;
+            }
+
+            self.block_sender
+                .as_ref()
+                .unwrap()
+                .send(transactions)
+                .unwrap();
+        }
+    }
+
+    /// Generates transactions for random pairs of accounts.
+    fn gen_counter_transactions(&mut self, block_size: usize, num_blocks: usize) {
+        for _i in 0..num_blocks {
+            let mut transactions = Vec::with_capacity(block_size);
+            let length = self.accounts.len();
+            let mut batch = length;
+            if batch > block_size {
+                batch = block_size;
+            }
+            for j in 0..batch {
+                //let indices = rand::seq::index::sample(&mut self.rng, self.accounts.len(), 2);
+                let sender_idx = j;
+                let sender = &self.accounts[sender_idx];
+
+                let txn = create_transaction(
+                    sender.address,
+                    sender.sequence_number,
+                    &sender.private_key,
+                    sender.public_key.clone(),
+                    encode_counter_script(),
                 );
                 transactions.push(txn);
 
@@ -313,8 +353,8 @@ fn create_transaction(
         sender,
         sequence_number,
         program,
-        200_000, /* max_gas_amount */
-        1,       /* gas_unit_price */
+        100_000_000_000, /* max_gas_amount */
+        0,       /* gas_unit_price */
         expiration_time,
     );
 

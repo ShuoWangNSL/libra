@@ -9,13 +9,13 @@ struct Opt {
     #[structopt(long, default_value = "1000000")]
     num_accounts: usize,
 
-    #[structopt(long, default_value = "1000000")]
+    #[structopt(long, default_value = "100000000000")]
     init_account_balance: u64,
 
-    #[structopt(long, default_value = "500")]
+    #[structopt(long, default_value = "1000")]
     block_size: usize,
 
-    #[structopt(long, default_value = "1000")]
+    #[structopt(long, default_value = "10")]
     num_transfer_blocks: usize,
 
     #[structopt(long, parse(from_os_str))]

@@ -15,6 +15,10 @@ pub fn peer_to_peer() -> &'static str {
     include_str!("../transaction_scripts/peer_to_peer_transfer.mvir")
 }
 
+pub fn custom_counter() -> &'static str {
+    include_str!("../transaction_scripts/counter.mvir")
+}
+
 /// Returns the source code for peer-to-peer transaction script with metadata.
 pub fn peer_to_peer_with_metadata() -> &'static str {
     include_str!("../transaction_scripts/peer_to_peer_transfer_with_metadata.mvir")
@@ -60,6 +64,9 @@ pub static ADD_VALIDATOR_TXN_BODY: Lazy<Program> =
 
 pub static PEER_TO_PEER_TRANSFER_TXN_BODY: Lazy<Program> =
     Lazy::new(|| parse_program(peer_to_peer()).unwrap());
+
+pub static COUNTER_TXN_BODY: Lazy<Program> =
+    Lazy::new(|| parse_program(custom_counter()).unwrap());
 
 pub static PEER_TO_PEER_TRANSFER_WITH_METADATA_TXN_BODY: Lazy<Program> =
     Lazy::new(|| parse_program(peer_to_peer_with_metadata()).unwrap());
