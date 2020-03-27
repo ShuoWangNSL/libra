@@ -21,7 +21,8 @@ use stdlib::{
         ADD_VALIDATOR_TXN_BODY, CREATE_ACCOUNT_TXN_BODY, MINT_TXN_BODY,
         PEER_TO_PEER_TRANSFER_TXN_BODY, PEER_TO_PEER_TRANSFER_WITH_METADATA_TXN_BODY,
         REGISTER_VALIDATOR_TXN_BODY, REMOVE_VALIDATOR_TXN_BODY, ROTATE_AUTHENTICATION_KEY_TXN_BODY,
-        ROTATE_CONSENSUS_PUBKEY_TXN_BODY,COUNTER_TXN_BODY,
+        ROTATE_CONSENSUS_PUBKEY_TXN_BODY, COUNTER_TXN_BODY, DONOTHING_TXN_BODY, CPUHEAVY_TXN_BODY,
+        IOHEAVYINIT_TXN_BODY, IOHEAVYRUN_TXN_BODY,
     },
 };
 #[cfg(any(test, feature = "fuzzing"))]
@@ -33,6 +34,18 @@ static PEER_TO_PEER_TXN: Lazy<Vec<u8>> =
 
 static COUNTER_TXN: Lazy<Vec<u8>> =
     Lazy::new(|| compile_script(&COUNTER_TXN_BODY));
+
+static DONOTHING_TXN: Lazy<Vec<u8>> =
+    Lazy::new(|| compile_script(&DONOTHING_TXN_BODY));
+
+static CPUHEAVY_TXN: Lazy<Vec<u8>> =
+    Lazy::new(|| compile_script(&CPUHEAVY_TXN_BODY));
+
+static IOHEAVYINIT_TXN: Lazy<Vec<u8>> =
+    Lazy::new(|| compile_script(&IOHEAVYINIT_TXN_BODY));
+
+static IOHEAVYRUN_TXN: Lazy<Vec<u8>> =
+    Lazy::new(|| compile_script(&IOHEAVYRUN_TXN_BODY));
 
 static PEER_TO_PEER_WITH_METADATA_TXN: Lazy<Vec<u8>> =
     Lazy::new(|| compile_script(&PEER_TO_PEER_TRANSFER_WITH_METADATA_TXN_BODY));
@@ -82,7 +95,6 @@ pub fn encode_transfer_script(recipient: &AccountAddress, amount: u64) -> Script
     )
 }
 
-
 pub fn encode_counter_script() -> Script {
     Script::new(
         COUNTER_TXN.clone(),
@@ -90,6 +102,33 @@ pub fn encode_counter_script() -> Script {
     )
 }
 
+pub fn encode_donothing_script() -> Script {
+    Script::new(
+        DONOTHING_TXN.clone(),
+        vec![],
+    )
+}
+
+pub fn encode_cpuheavy_script() -> Script {
+    Script::new(
+        CPUHEAVY_TXN.clone(),
+        vec![],
+    )
+}
+
+pub fn encode_ioheavy_init_script() -> Script {
+    Script::new(
+        IOHEAVYINIT_TXN.clone(),
+        vec![],
+    )
+}
+
+pub fn encode_ioheavy_run_script() -> Script {
+    Script::new(
+        IOHEAVYRUN_TXN.clone(),
+        vec![],
+    )
+}
 
 /// Encode a program transferring `amount` coins from `sender` to `recipient` with associated
 /// metadata `metadata`. Fails if there is no account at the recipient address or if the sender's

@@ -19,6 +19,22 @@ pub fn custom_counter() -> &'static str {
     include_str!("../transaction_scripts/counter.mvir")
 }
 
+pub fn donothing() -> &'static str {
+    include_str!("../transaction_scripts/donothing.mvir")
+}
+
+pub fn cpuheavy() -> &'static str {
+    include_str!("../transaction_scripts/cpuheavy_script.mvir")
+}
+
+pub fn ioheavy_init() -> &'static str {
+    include_str!("../transaction_scripts/ioheavy_init.mvir")
+}
+
+pub fn ioheavy_run() -> &'static str {
+    include_str!("../transaction_scripts/ioheavy_run.mvir")
+}
+
 /// Returns the source code for peer-to-peer transaction script with metadata.
 pub fn peer_to_peer_with_metadata() -> &'static str {
     include_str!("../transaction_scripts/peer_to_peer_transfer_with_metadata.mvir")
@@ -67,6 +83,19 @@ pub static PEER_TO_PEER_TRANSFER_TXN_BODY: Lazy<Program> =
 
 pub static COUNTER_TXN_BODY: Lazy<Program> =
     Lazy::new(|| parse_program(custom_counter()).unwrap());
+
+pub static DONOTHING_TXN_BODY: Lazy<Program> =
+    Lazy::new(|| parse_program(donothing()).unwrap());
+
+pub static CPUHEAVY_TXN_BODY: Lazy<Program> =
+    Lazy::new(|| parse_program(cpuheavy()).unwrap());
+
+pub static IOHEAVYINIT_TXN_BODY: Lazy<Program> =
+    Lazy::new(|| parse_program(ioheavy_init()).unwrap());
+
+pub static IOHEAVYRUN_TXN_BODY: Lazy<Program> =
+    Lazy::new(|| parse_program(ioheavy_run()).unwrap());
+
 
 pub static PEER_TO_PEER_TRANSFER_WITH_METADATA_TXN_BODY: Lazy<Program> =
     Lazy::new(|| parse_program(peer_to_peer_with_metadata()).unwrap());

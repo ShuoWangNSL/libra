@@ -1,0 +1,6 @@
+import 0x0.Cpuheavy;
+
+main() {
+    Cpuheavy.sort(255);
+    return;
+}
