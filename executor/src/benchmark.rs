@@ -23,7 +23,8 @@ use std::{
     sync::{mpsc, Arc},
 };
 use storage_client::{StorageRead, StorageReadServiceClient};
-use transaction_builder::{encode_create_account_script, encode_transfer_script, encode_counter_script};
+use transaction_builder::{encode_create_account_script, encode_transfer_script, encode_counter_script,
+                          encode_donothing_script, encode_cpuheavy_script, encode_ioheavy_init_script, encode_ioheavy_run_script};
 use vm_runtime::LibraVM;
 
 struct AccountData {
@@ -84,10 +85,18 @@ impl TransactionGenerator {
         }
     }
 
-    fn run(&mut self, init_account_balance: u64, block_size: usize, num_transfer_blocks: usize) {
+    fn run(&mut self, init_account_balance: u64, block_size: usize, num_transfer_blocks: usize, tx_type: usize) {
         self.gen_mint_transactions(init_account_balance, block_size);
-        self.gen_transfer_transactions(block_size, num_transfer_blocks);
-        self.gen_counter_transactions(block_size, num_transfer_blocks);
+        match tx_type {
+            1 => self.gen_custom_transactions(block_size, num_transfer_blocks, 1),
+            2 => self.gen_custom_transactions(block_size, num_transfer_blocks, 2),
+            3 => {
+                self.gen_custom_transactions(block_size, 1, 3);
+                self.gen_custom_transactions(block_size, num_transfer_blocks, 4);
+            }
+            _ => self.gen_transfer_transactions(block_size, num_transfer_blocks),
+        }
+
     }
 
     /// Generates transactions that allocate `init_account_balance` to every account.
@@ -152,7 +161,7 @@ impl TransactionGenerator {
     }
 
     /// Generates transactions for random pairs of accounts.
-    fn gen_counter_transactions(&mut self, block_size: usize, num_blocks: usize) {
+    fn gen_custom_transactions(&mut self, block_size: usize, num_blocks: usize, tx_type: usize) {
         for _i in 0..num_blocks {
             let mut transactions = Vec::with_capacity(block_size);
             let length = self.accounts.len();
@@ -164,13 +173,19 @@ impl TransactionGenerator {
                 //let indices = rand::seq::index::sample(&mut self.rng, self.accounts.len(), 2);
                 let sender_idx = j;
                 let sender = &self.accounts[sender_idx];
-
+                let program = match tx_type {
+                    1 => encode_donothing_script(),
+                    2 => encode_cpuheavy_script(),
+                    3 => encode_ioheavy_init_script(),
+                    4 => encode_ioheavy_run_script(),
+                    _ => encode_counter_script(),
+                };
                 let txn = create_transaction(
                     sender.address,
                     sender.sequence_number,
                     &sender.private_key,
                     sender.public_key.clone(),
-                    encode_counter_script(),
+                    program,
                 );
                 transactions.push(txn);
 
@@ -295,6 +310,7 @@ pub fn run_benchmark(
     init_account_balance: u64,
     block_size: usize,
     num_transfer_blocks: usize,
+    tx_type: usize,
     db_dir: Option<PathBuf>,
 ) {
     let (mut config, genesis_key) = config_builder::test_config();
@@ -314,7 +330,7 @@ pub fn run_benchmark(
         .spawn(move || {
             let mut generator =
                 TransactionGenerator::new(genesis_key, num_accounts, block_sender, storage_client);
-            generator.run(init_account_balance, block_size, num_transfer_blocks);
+            generator.run(init_account_balance, block_size, num_transfer_blocks, tx_type);
             generator
         })
         .expect("Failed to spawn transaction generator thread.");
@@ -372,6 +388,7 @@ mod tests {
             1_000_000, /* init_account_balance */
             5,         /* block_size */
             5,         /* num_transfer_blocks */
+            0,
             None,      /* db_dir */
         );
     }

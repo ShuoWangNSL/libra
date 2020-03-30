@@ -15,7 +15,7 @@ pub fn peer_to_peer() -> &'static str {
     include_str!("../transaction_scripts/peer_to_peer_transfer.mvir")
 }
 
-pub fn custom_counter() -> &'static str {
+pub fn counter() -> &'static str {
     include_str!("../transaction_scripts/counter.mvir")
 }
 
@@ -82,7 +82,7 @@ pub static PEER_TO_PEER_TRANSFER_TXN_BODY: Lazy<Program> =
     Lazy::new(|| parse_program(peer_to_peer()).unwrap());
 
 pub static COUNTER_TXN_BODY: Lazy<Program> =
-    Lazy::new(|| parse_program(custom_counter()).unwrap());
+    Lazy::new(|| parse_program(counter()).unwrap());
 
 pub static DONOTHING_TXN_BODY: Lazy<Program> =
     Lazy::new(|| parse_program(donothing()).unwrap());

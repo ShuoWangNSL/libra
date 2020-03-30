@@ -6,7 +6,7 @@ use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 struct Opt {
-    #[structopt(long, default_value = "1000000")]
+    #[structopt(long, default_value = "1000")]
     num_accounts: usize,
 
     #[structopt(long, default_value = "100000000000")]
@@ -17,6 +17,9 @@ struct Opt {
 
     #[structopt(long, default_value = "10")]
     num_transfer_blocks: usize,
+
+    #[structopt(long, default_value = "0")]
+    tx_type: usize,
 
     #[structopt(long, parse(from_os_str))]
     db_dir: Option<PathBuf>,
@@ -38,6 +41,7 @@ fn main() {
         opt.init_account_balance,
         opt.block_size,
         opt.num_transfer_blocks,
+        opt.tx_type,
         opt.db_dir,
     );
 }
